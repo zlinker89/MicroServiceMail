@@ -1,10 +1,15 @@
 class Mail {
   mailList: string[];
   mailListBCC: string[];
+  subject: string;
+  plainText: string;
   body: string;
-  constructor(mailList: string[], mailListBCC: string[], body: string) {
+
+  constructor(mailList: string[], mailListBCC: string[], subject: string, plainText: string, body: string) {
     this.mailList = this.validateEmail(mailList);
     this.mailListBCC = this.validateEmail(mailListBCC);
+    this.subject = subject;
+    this.plainText = plainText;
     this.body = body;
   }
 
@@ -15,7 +20,7 @@ class Mail {
    */
   private validateEmail(mailList: string[]) {
     for (const mail of mailList) {
-        if (!this.isEmailValid(mail)) throw new ValidationError(`El email ${mail} es invalido`);
+        if (!this.isEmailValid(mail)) throw new ValidationException(`El email ${mail} es invalido`);
     }
     return mailList
   }

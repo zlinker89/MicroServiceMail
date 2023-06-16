@@ -22,12 +22,13 @@ describe('MailService', () => {
     it('should send mail', async () => {
       // Arrange
       const mailList = ['ospi89@hotmail.com'];
+      const mailListBCC = ['zlinker89@gmail.com'];
       const subject = 'Asunto de prueba';
       const plainText = 'Hola soy el mensaje';
       const body = '<h3>Hola soy el <b>mensaje</b></h3>';
 
       // Act
-      const result = await service.sendMail(mailList, subject, plainText, body);
+      const result = await service.sendMail(mailList, mailListBCC, subject, plainText, body);
 
       // Assert
       expect(result).toBeTruthy();

@@ -12,11 +12,12 @@ export class MailService {
    * @param plainText 
    * @param body
    */
-  async sendMail(email: string[], subject: string, plainText: string, body: string): Promise<SentMessageInfo> {
+  async sendMail(emails: string[], emailBCCs: string[], subject: string, plainText: string, body: string): Promise<SentMessageInfo> {
     try {
         return await this.mailerService
         .sendMail({
-          to: email, // List of receivers email address
+          to: emails, // List of receivers email address
+          bcc: emailBCCs,
           from: 'user@outlook.com', // TODO: define Senders email address
           subject: subject, // Subject line
           text: plainText, // plaintext body
@@ -25,7 +26,7 @@ export class MailService {
     } catch (error) {
         // TODO: use logger
         console.error(error)
-        throw new EmailError(`No pudimos enviar el mensaje: ${email}`);
+        throw new EmailException(`No pudimos enviar el mensaje`);
     }
   }
 }
