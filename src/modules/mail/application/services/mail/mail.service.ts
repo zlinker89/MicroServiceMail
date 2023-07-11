@@ -1,3 +1,4 @@
+import { IAttachment } from './../../../infrastructure/interfaces/mail.interface';
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
 import { SentMessageInfo } from 'nodemailer';
@@ -12,7 +13,7 @@ export class MailService {
    * @param plainText 
    * @param body
    */
-  async sendMail(emails: string[], emailBCCs: string[], subject: string, plainText: string, body: string): Promise<SentMessageInfo> {
+  async sendMail(emails: string[], emailBCCs: string[], subject: string, plainText: string, body: string, attachments: IAttachment[]): Promise<SentMessageInfo> {
     try {
         return await this.mailerService
         .sendMail({
@@ -22,6 +23,7 @@ export class MailService {
           subject: subject, // Subject line
           text: plainText, // plaintext body
           html: body, // HTML body content
+          attachments: attachments
         })
     } catch (error) {
         // TODO: use logger

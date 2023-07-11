@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
 import { MailService } from './application/services/mail/mail.service';
 import { MailerModule, MailerService } from '@nestjs-modules/mailer';
+import { MailController } from './infrastructure/controllers/mail.controller';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
+    HttpModule,
     MailerModule.forRoot({
       transport: {
         host: 'sandbox.smtp.mailtrap.io', // TODO: use config
@@ -15,9 +18,10 @@ import { MailerModule, MailerService } from '@nestjs-modules/mailer';
       },
     }),
   ],
+  controllers: [MailController],
   providers: [MailService],
   exports: [
-    MailService
+    MailService, 
   ]
 })
 export class MailModule {}
